@@ -1,0 +1,73 @@
+name: Build MiniBrowser (Windows portable)
+permissions:
+  contents: write
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Default URL (optional)"
+        required: false
+        default: ""
+jobs:
+  build-windows:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install WebView2 Runtime
+        shell: pwsh
+        run: |
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest -Uri https://go.microsoft.com/fwlink/p/?LinkId=2124703 -OutFile webview2.exe
+          Start-Process .\webview2.exe -ArgumentList '/install','/silent','/norestart' -Wait
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Build portable exe (no bundles)
+        run: npx tauri build --bundles none --ci
+
+      - name: Package portable zip
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $exe = Get-ChildItem -Path src-tauri/target/release -Filter *.exe | Where-Object { $_.Name -notmatch 'app\.exe' } | Select-Object -First 1
+          if (-not $exe) { throw 'EXE not found in src-tauri/target/release' }
+          New-Item -ItemType Directory -Path portable -Force | Out-Null
+          Copy-Item $exe.FullName portable\MiniBrowser.exe
+          New-Item -ItemType Directory -Path portable\profile -Force | Out-Null
+          New-Item -ItemType Directory -Path portable\data -Force | Out-Null
+          Compress-Archive -Path portable\* -DestinationPath MiniBrowser-portable-win64.zip -Force
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiniBrowser-portable-win64
+          path: MiniBrowser-portable-win64.zip
