@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiniBrowser</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="titlebar" data-tauri-drag-region>
+      <div class="title">MiniBrowser</div>
+      <div class="actions">
+        <button id="btnPin" title="Always on top (Ctrl+T)">📌</button>
+        <button id="btnOpacity" title="Opacity (Ctrl+O)">◐</button>
+        <button id="btnSettings" title="Settings / Настройки">⚙️</button>
+        <button id="btnClose" title="Close">✕</button>
+      </div>
+    </div>
+
+    <div class="controls" id="controls">
+      <div class="tabs" id="tabs"></div>
+      <div class="addr">
+        <span class="icon">🔗</span>
+        <input id="url" placeholder="https://www.google.com" />
+        <button id="open" title="Open">⮐</button>
+        <button id="media" title="Media permissions">🔊🎙️</button>
+      </div>
+      <div id="handle" title="Collapse">⋮</div>
+    </div>
+
+    <div id="home">
+      <div class="logo">Go<span class="b">o</span>gle</div>
+      <div class="search">
+        <input id="homeInput" placeholder="Search Google or type a URL" />
+        <button id="homeGo">Search</button>
+      </div>
+      <div class="hint">Mic & audio: allowed (prompt on first use)</div>
+    </div>
+  </div>
+  <script type="module" src="/main.ts"></script>
+</body>
+</html>

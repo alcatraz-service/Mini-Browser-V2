@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/2.0/tooling/cli/schema.json",
+  "productName": "MiniBrowser",
+  "version": "0.2.1",
+  "identifier": "co.petr.minibrowser",
+  "build": {
+    "beforeBuildCommand": "vite build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "MiniBrowser",
+        "width": 1000,
+        "height": 700,
+        "minWidth": 100,
+        "minHeight": 60,
+        "resizable": true,
+        "visible": true,
+        "decorations": false,
+        "transparent": false,
+        "center": true
+      }
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "msi",
+      "app",
+      "deb",
+      "appimage"
+    ],
+    "icon": [
+      "icons/icon.ico",
+      "icons/128x128.png",
+      "icons/256x256.png",
+      "icons/icon.png"
+    ]
+  }
+}

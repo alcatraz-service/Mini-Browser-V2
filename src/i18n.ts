@@ -1,0 +1,5 @@
+export type Lang = "en" | "ru";
+export const dict = {
+  en: { settings:"Settings", showAddr:"Show address bar", showTabs:"Show tabs", onTop:"Always on top", remember:"Remember last session", border:"Border width", ribbon:"Narrow ribbon mode", width:"Width", height:"Height", hud:"Click-through (HUD)", snap:"Snap to edges", bookmarksBar:"Show bookmarks bar", clearCache:"Clear cache", clearHistory:"Clear history", hotkeys:"Hotkeys", hkL:"Focus address bar", hkB:"Toggle bookmarks", hkDel:"Clear dialog" },
+  ru: { settings:"Настройки", showAddr:"Показать адресную строку", showTabs:"Показать вкладки", onTop:"Поверх всех окон", remember:"Запоминать сессию", border:"Толщина рамки", ribbon:"Узкая лента", width:"Ширина", height:"Высота", hud:"Прозрачность для кликов (HUD)", snap:"Прилипание к краям", bookmarksBar:"Панель закладок", clearCache:"Очистить кэш", clearHistory:"Очистить историю", hotkeys:"Горячие клавиши", hkL:"Показать и сфокусировать адресную строку", hkB:"Показать/скрыть закладки", hkDel:"Окно очистки кэша/истории" }
+} as const;

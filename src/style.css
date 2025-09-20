@@ -1,0 +1,30 @@
+:root { --bg:#0b0b0d; --fg:#ddd; --muted:#9aa; --line:#1f1f26; }
+* { box-sizing: border-box; }
+html, body, #app { height: 100%; }
+body { margin:0; background:var(--bg); color:var(--fg); font:13px/1.3 system-ui, Segoe UI, Roboto, Ubuntu; }
+
+.titlebar { height:28px; display:flex; align-items:center; justify-content:space-between; padding:0 8px; background:#0e0e12; border-bottom:1px solid var(--line); user-select:none; }
+.titlebar .title { -webkit-app-region: drag; opacity:.8; font-weight:600; }
+.titlebar .actions { display:flex; gap:6px; }
+.titlebar button { all:unset; cursor:pointer; padding:3px 8px; border-radius:6px; background:#1a1a22; color:var(--fg); -webkit-app-region: no-drag; }
+.titlebar button:hover { background:#242436; }
+
+.controls { display:flex; align-items:center; gap:8px; padding:6px 8px; background:#0e0e12; border-bottom:1px solid var(--line); height:42px; overflow:hidden; }
+.tabs { display:flex; gap:6px; }
+.tabs button { all:unset; cursor:pointer; padding:6px 8px; border-radius:8px; background:#1a1a22; }
+.tabs button.active { background:#303046; }
+.addr { position:relative; display:flex; align-items:center; gap:6px; flex:1; }
+.addr .icon { position:absolute; left:8px; opacity:.6; }
+.addr input { flex:1; height:28px; padding:0 28px 0 24px; border-radius:8px; border:1px solid var(--line); background:#141419; color:var(--fg); outline:none; }
+.addr #open { width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:6px; background:#2a2a38; }
+.addr #open:hover { background:#3a3a4a; }
+.addr #media { all:unset; cursor:pointer; padding:6px 8px; border-radius:8px; background:#1a1a22; }
+#handle { cursor:pointer; opacity:.6; }
+
+#home { position:absolute; inset:28px 0 0 0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; }
+#home .logo { font-size:54px; font-weight:600; letter-spacing:-0.5px; }
+#home .logo .b { color:#4ba3ff; }
+#home .search { display:flex; gap:8px; width:60%; }
+#home .search input { flex:1; height:40px; padding:0 12px; border-radius:999px; border:1px solid var(--line); background:#111116; color:#fff; }
+#home .search button { height:40px; padding:0 16px; border-radius:999px; background:#242436; border:1px solid var(--line); color:#fff; }
+#home .hint { opacity:.6; font-size:12px; }
